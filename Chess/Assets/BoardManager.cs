@@ -75,6 +75,31 @@ public class BoardManager : MonoBehaviour
 		{
 			SpawnChessman(5, GetTileCenter (i, 1));
 		}
+
+		/// Black team
+		// King
+		SpawnChessman(6, GetTileCenter(4, 7));
+		
+		// Queen
+		SpawnChessman(7, GetTileCenter(3, 7));
+
+		// Rooks
+		SpawnChessman(8, GetTileCenter(0, 7));
+		SpawnChessman(8, GetTileCenter(7, 7));
+		
+		// Bishops
+		SpawnChessman(9, GetTileCenter(2, 7));
+		SpawnChessman(9, GetTileCenter(5, 7));
+		
+		// Knights
+		SpawnChessman(10, GetTileCenter(1, 7));
+		SpawnChessman(10, GetTileCenter(6, 7));
+
+		// Pawns
+		for (int i = 0; i < 8; i++)
+		{
+			SpawnChessman(11, GetTileCenter (i, 6));
+		}
 	}
 
 	private Vector3 GetTileCenter (int x, int y)
