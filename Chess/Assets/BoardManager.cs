@@ -14,7 +14,7 @@ public class BoardManager : MonoBehaviour
 
 	private void Start()
 	{
-		SpawnChessman(0, Vector3.zero); // White King
+		SpawnChessman(0, GetTileCenter(4, 0)); // White King
 	}
 
 	private void Update()
@@ -45,6 +45,16 @@ public class BoardManager : MonoBehaviour
 		GameObject go = Instantiate (chessmanPrefabs[index], position, Quaternion.identity) as GameObject;
 		go.transform.SetParent (transform);
 		activeChessman.Add(go);
+	}
+
+	private Vector3 GetTileCenter (int x, int y)
+	{
+		Vector3 origin = Vector3.zero;
+		
+		origin.x += ((TILE_SIZE * x) + TILE_OFFSET);
+		origin.z += ((TILE_SIZE * y) + TILE_OFFSET);
+
+		return origin;
 	}
 
 	private void DrawChessboard()
