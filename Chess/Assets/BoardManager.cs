@@ -10,11 +10,11 @@ public class BoardManager : MonoBehaviour
 	private int selectionY = -1; // nothing is selected
 
 	public List<GameObject> chessmanPrefabs;
-	private List<GameObject> activeChessman = new List<GameObject>();
+	private List<GameObject> activeChessman;
 
 	private void Start()
 	{
-		SpawnChessman(0, GetTileCenter(4, 0)); // White King
+		SpawnAllChessmans();
 	}
 
 	private void Update()
@@ -45,6 +45,36 @@ public class BoardManager : MonoBehaviour
 		GameObject go = Instantiate (chessmanPrefabs[index], position, Quaternion.identity) as GameObject;
 		go.transform.SetParent (transform);
 		activeChessman.Add(go);
+	}
+
+	private void SpawnAllChessmans()
+	{
+		activeChessman = new List<GameObject>();
+
+		/// White team
+		// King
+		SpawnChessman(0, GetTileCenter(4, 0));
+		
+		// Queen
+		SpawnChessman(1, GetTileCenter(3, 0));
+
+		// Rooks
+		SpawnChessman(2, GetTileCenter(0, 0));
+		SpawnChessman(2, GetTileCenter(7, 0));
+		
+		// Bishops
+		SpawnChessman(3, GetTileCenter(2, 0));
+		SpawnChessman(3, GetTileCenter(5, 0));
+		
+		// Knights
+		SpawnChessman(4, GetTileCenter(1, 0));
+		SpawnChessman(4, GetTileCenter(6, 0));
+
+		// Pawns
+		for (int i = 0; i < 8; i++)
+		{
+			SpawnChessman(5, GetTileCenter (i, 1));
+		}
 	}
 
 	private Vector3 GetTileCenter (int x, int y)
