@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class BoardManager : MonoBehaviour 
 {
@@ -7,6 +8,9 @@ public class BoardManager : MonoBehaviour
 
 	private int selectionX = -1; // nothing is selected
 	private int selectionY = -1; // nothing is selected
+
+	public List<GameObject> chessmanPrefabs;
+	private List<GameObject> activeChessman;
 
 	private void Update()
 	{
