@@ -10,7 +10,12 @@ public class BoardManager : MonoBehaviour
 	private int selectionY = -1; // nothing is selected
 
 	public List<GameObject> chessmanPrefabs;
-	private List<GameObject> activeChessman;
+	private List<GameObject> activeChessman = new List<GameObject>();
+
+	private void Start()
+	{
+		SpawnChessman(0, Vector3.zero); // White King
+	}
 
 	private void Update()
 	{
@@ -33,6 +38,13 @@ public class BoardManager : MonoBehaviour
 			selectionX = -1;
 			selectionY = -1;
 		}
+	}
+
+	private void SpawnChessman(int index, Vector3 position)
+	{
+		GameObject go = Instantiate (chessmanPrefabs[index], position, Quaternion.identity) as GameObject;
+		go.transform.SetParent (transform);
+		activeChessman.Add(go);
 	}
 
 	private void DrawChessboard()
