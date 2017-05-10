@@ -10,7 +10,19 @@ public class BoardManager : MonoBehaviour
 
 	private void Update()
 	{
+		UpdateSelection();
 		DrawChessboard();
+	}
+
+	private void UpdateSelection()
+	{
+		if (!Camera.main) return;
+
+		RaycastHit hit;
+		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessBoard")))
+		{
+			Debug.Log(hit.point);
+		}
 	}
 
 	private void DrawChessboard()
