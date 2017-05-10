@@ -21,7 +21,13 @@ public class BoardManager : MonoBehaviour
 		RaycastHit hit;
 		if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("ChessBoard")))
 		{
-			Debug.Log(hit.point);
+			selectionX = (int)hit.point.x;
+			selectionY = (int)hit.point.z;
+		}
+		else
+		{
+			selectionX = -1;
+			selectionY = -1;
 		}
 	}
 
@@ -39,6 +45,20 @@ public class BoardManager : MonoBehaviour
 				startPos = Vector3.right * j;
 				Debug.DrawLine(startPos, startPos + heigthLine);	
 			}	
+		}
+
+		// Draw the hit cross
+		if (selectionX >= 0 && selectionY >= 0)
+		{
+			Debug.DrawLine(
+				Vector3.forward * selectionY + Vector3.right * selectionX, 
+				Vector3.forward * (selectionY + 1) + Vector3.right * (selectionX + 1)
+			);
+
+			Debug.DrawLine(
+				Vector3.forward * (selectionY + 1) + Vector3.right * selectionX, 
+				Vector3.forward * selectionY + Vector3.right * (selectionX + 1)
+			);
 		}
 	}
 }
