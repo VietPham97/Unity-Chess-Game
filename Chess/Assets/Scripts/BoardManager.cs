@@ -55,7 +55,7 @@ public class BoardManager : MonoBehaviour
 
 		allowedMove = Chessman[x, y].PossibleMove();
 		selectedChessman = Chessman[x, y];
-		// BoardHighlight.Instance.HighlightAllowedMoves(allowedMove);
+		BoardHighlight.Instance.HighlightAllowedMoves(allowedMove);
 	}
 	
 	private void MoveChessman(int x, int y)
@@ -68,6 +68,7 @@ public class BoardManager : MonoBehaviour
 			isWhiteTurn = !isWhiteTurn;
 		}
 
+		BoardHighlight.Instance.HideHighLight();
 		selectedChessman = null; // make player unselect his/her chessman
 	}
 
