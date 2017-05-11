@@ -49,6 +49,7 @@ public class BoardManager : MonoBehaviour
 		GameObject go = Instantiate (chessmanPrefabs[index], GetTileCenter(x, y), Quaternion.identity) as GameObject;
 		go.transform.SetParent (transform);
 		Chessman[x, y] = go.GetComponent<Chessman>();
+		Chessman[x, y].SetPosition(x, y);
 		activeChessman.Add(go);
 	}
 
