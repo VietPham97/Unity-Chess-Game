@@ -62,6 +62,23 @@ public class BoardManager : MonoBehaviour
 	{
 		if (allowedMove[x,y])
 		{
+			Chessman c = Chessman [x, y];
+
+			if (c != null && c.isWhite != isWhiteTurn) /* there is an enemy that can be captured */
+			{
+				// Capture a piece
+
+				// TODO If it is the King
+				if (c.GetType() == typeof(King))
+				{
+					// End game
+					return;
+				}
+
+				activeChessman.Remove(c.gameObject);
+				Destroy (c.gameObject);
+			}
+
 			Chessman[selectedChessman.CurrentX, selectedChessman.CurrentY] = null; // set the start position to null
 			selectedChessman.transform.position = GetTileCenter(x, y); // move that selected chessman to the new position
 			selectedChessman.SetPosition(x,y);
