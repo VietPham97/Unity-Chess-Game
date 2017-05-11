@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour
 	private List<GameObject> chessmanPrefabs;
 	private List<GameObject> activeChessman;
 
+	public bool isWhiteTurn = true;
+
 	private void Start()
 	{
 		SpawnAllChessmans();
@@ -25,6 +27,35 @@ public class BoardManager : MonoBehaviour
 	{
 		UpdateSelection();
 		DrawChessboard();
+
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (selectionX >= 0 && selectionY >= 0)
+			{
+				if (selectedChessman == null)
+				{
+					SelectChessman(selectionX, selectionY);
+				}
+				else
+				{
+					MoveChessman(selectionX, selectionY);
+				}
+			}
+		}
+	}
+
+	private void SelectChessman(int x, int y)
+	{
+		if (Chessman[x, y] == null) return; // No chessman at that hit point
+
+		if (Chessman[x, y].isWhite != isWhiteTurn) return; // Not white team at first move
+
+		selectedChessman = Chessman[x, y];
+	}
+	
+	private void MoveChessman(int x, int y)
+	{
+		
 	}
 
 	private void UpdateSelection()
