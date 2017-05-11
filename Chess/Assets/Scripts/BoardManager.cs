@@ -18,12 +18,12 @@ public class BoardManager : MonoBehaviour
 	private List<GameObject> chessmanPrefabs;
 	private List<GameObject> activeChessman;
 
-	public bool isWhiteTurn = true;
+	private bool isWhiteTurn;
 
 	private void Start()
 	{
 		Instance = this;
-		SpawnAllChessmans();
+		NewGame();
 	}
 
 	private void Update()
@@ -68,10 +68,11 @@ public class BoardManager : MonoBehaviour
 			{
 				// Capture a piece
 
-				// TODO If it is the King
+				// If it is the King
 				if (c.GetType() == typeof(King))
 				{
-					// End game
+					EndGame();
+					NewGame();
 					return;
 				}
 
@@ -211,5 +212,23 @@ public class BoardManager : MonoBehaviour
 				Vector3.forward * selectionY + Vector3.right * (selectionX + 1)
 			);
 		}
+	}
+
+	private void NewGame()
+	{
+		isWhiteTurn = true;
+		BoardHighlight.Instance.HideHighLight();
+		SpawnAllChessmans();
+	}
+
+	private void EndGame()
+	{
+		if (isWhiteTurn)
+			Debug.Log ("White team wins");
+		else
+			Debug.Log ("Black team wins");
+
+		foreach (GameObject go in activeChessman)
+			Destroy (go);
 	}
 }
