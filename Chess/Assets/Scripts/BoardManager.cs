@@ -64,6 +64,7 @@ public class BoardManager : MonoBehaviour
 		{
 			Chessman[selectedChessman.CurrentX, selectedChessman.CurrentY] = null; // set the start position to null
 			selectedChessman.transform.position = GetTileCenter(x, y); // move that selected chessman to the new position
+			selectedChessman.SetPosition(x,y);
 			Chessman[x, y] = selectedChessman; // store new position value in the script
 			isWhiteTurn = !isWhiteTurn;
 		}
