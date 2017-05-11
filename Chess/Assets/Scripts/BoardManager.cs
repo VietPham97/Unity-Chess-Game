@@ -53,7 +53,21 @@ public class BoardManager : MonoBehaviour
 
 		if (Chessman[x, y].isWhite != isWhiteTurn) return; // Not white team at first move
 
+		bool hasAtLeastOneMove = false;
 		allowedMove = Chessman[x, y].PossibleMove();
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if (allowedMove [i, j])
+				{
+					hasAtLeastOneMove = true;
+				}
+			}
+		}
+
+		if (!hasAtLeastOneMove) return;
+		
 		selectedChessman = Chessman[x, y];
 		BoardHighlight.Instance.HighlightAllowedMoves(allowedMove);
 	}
