@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class BoardManager : MonoBehaviour 
 {
+	public static BoardManager Instance { set; get; }
+	private bool[,] allowedMove { set; get; }
 	public Chessman[,] Chessman { set; get; }
 	private Chessman selectedChessman;
 
@@ -20,6 +22,7 @@ public class BoardManager : MonoBehaviour
 
 	private void Start()
 	{
+		Instance = this;
 		SpawnAllChessmans();
 	}
 
@@ -50,12 +53,14 @@ public class BoardManager : MonoBehaviour
 
 		if (Chessman[x, y].isWhite != isWhiteTurn) return; // Not white team at first move
 
+		allowedMove = Chessman[x, y].PossibleMove();
 		selectedChessman = Chessman[x, y];
+		// BoardHighlight.Instance.HighlightAllowedMoves(allowedMove);
 	}
 	
 	private void MoveChessman(int x, int y)
 	{
-		if (selectedChessman.PossibleMove(x,y))
+		if (allowedMove[x,y])
 		{
 			Chessman[selectedChessman.CurrentX, selectedChessman.CurrentY] = null; // set the start position to null
 			selectedChessman.transform.position = GetTileCenter(x, y); // move that selected chessman to the new position
