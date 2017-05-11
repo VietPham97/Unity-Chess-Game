@@ -231,7 +231,6 @@ public class BoardManager : MonoBehaviour
 	private void NewGame()
 	{
 		isWhiteTurn = true;
-		BoardHighlight.Instance.HideHighLight();
 		SpawnAllChessmans();
 	}
 
@@ -244,5 +243,7 @@ public class BoardManager : MonoBehaviour
 
 		foreach (GameObject go in activeChessman)
 			Destroy (go);
+
+		BoardHighlight.Instance.HideHighLight();
 	}
 }
