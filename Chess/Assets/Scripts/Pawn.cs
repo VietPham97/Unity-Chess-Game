@@ -4,12 +4,16 @@
     {
         bool[,] move = new bool[8, 8];
         Chessman c, c2;
+        int[] e = BoardManager.Instance.EnPassantMove;
 
         if (isWhite) /* White team */
         {
             // Diagonal Left
             if (CurrentX != 0 && CurrentY != 7) /* Left side and Top side from White view */
             {
+                if (e[0] == CurrentX - 1 && e[1] == CurrentY + 1)
+                    move [CurrentX - 1, CurrentY + 1] = true;
+
                 c = BoardManager.Instance.Chessman[CurrentX - 1, CurrentY + 1];
 
                 if (c != null && !c.isWhite)
@@ -19,6 +23,9 @@
             // Diagonal Right
             if (CurrentX != 7 && CurrentY != 7) /* Right side and Top side from White view */
             {
+                if (e[0] == CurrentX + 1 && e[1] == CurrentY + 1)
+                    move [CurrentX + 1, CurrentY + 1] = true;
+
                 c = BoardManager.Instance.Chessman[CurrentX + 1, CurrentY + 1];
 
                 if (c != null && !c.isWhite)
@@ -49,6 +56,9 @@
             // Diagonal Left
             if (CurrentX != 0 && CurrentY != 0) /* Left side and Bottom side from White view */
             {
+                if (e[0] == CurrentX - 1 && e[1] == CurrentY - 1)
+                    move [CurrentX - 1, CurrentY - 1] = true;
+
                 c = BoardManager.Instance.Chessman[CurrentX - 1, CurrentY - 1];
 
                 if (c != null && c.isWhite)
@@ -58,6 +68,9 @@
             // Diagonal Right
             if (CurrentX != 7 && CurrentY != 0) /* Right side and Bottom side from White view */
             {
+                if (e[0] == CurrentX + 1 && e[1] == CurrentY - 1)
+                    move [CurrentX + 1, CurrentY - 1] = true;
+
                 c = BoardManager.Instance.Chessman[CurrentX + 1, CurrentY - 1];
 
                 if (c != null && c.isWhite)

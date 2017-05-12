@@ -21,6 +21,8 @@ public class BoardManager : MonoBehaviour
 	private Material previousMat;
 	public Material selectedMat;
 
+	public int[] EnPassantMove { set; get; }
+
 	private bool isWhiteTurn;
 
 	private void Start()
@@ -100,6 +102,33 @@ public class BoardManager : MonoBehaviour
 				Destroy (c.gameObject);
 			}
 
+            if (x == EnPassantMove[0] && y == EnPassantMove[1])
+            {
+                if (isWhiteTurn) 
+                    c = Chessman[x, y - 1];   
+                else
+					c = Chessman[x, y + 1];
+                
+				activeChessman.Remove(c.gameObject);
+				Destroy(c.gameObject);
+            }
+
+			EnPassantMove[0] = -1; /* Reset the value first */
+			EnPassantMove[1] = -1; /* Reset the value first */
+			if (selectedChessman.GetType() == typeof(Pawn))
+			{
+				if (selectedChessman.CurrentY == 1 && y == 3) /* White pawn en passant move */
+				{
+					EnPassantMove[0] = x;
+					EnPassantMove[1] = y - 1;
+				}
+				else if (selectedChessman.CurrentY == 6 && y == 4) /* Black pawn en passant move */
+				{
+					EnPassantMove[0] = x;
+					EnPassantMove[1] = y + 1;
+				}
+			}
+
 			Chessman[selectedChessman.CurrentX, selectedChessman.CurrentY] = null; // set the start position to null
 			selectedChessman.transform.position = GetTileCenter(x, y); // move that selected chessman to the new position
 			selectedChessman.SetPosition(x,y);
@@ -142,6 +171,7 @@ public class BoardManager : MonoBehaviour
 	{
 		activeChessman = new List<GameObject>();
 		Chessman = new Chessman[8, 8];
+		EnPassantMove = new int [2] {-1, -1}; // Initialize an array in C#
 
 		/// White team
 		// King

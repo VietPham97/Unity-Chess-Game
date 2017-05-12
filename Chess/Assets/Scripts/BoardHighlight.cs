@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardHighlight : MonoBehaviour 
 {
-	public static BoardHighlight Instance { set; get; }
+    public static BoardHighlight Instance { set; get; }
 
 	public GameObject highlightPrefab;
 	private List<GameObject> highlights;
